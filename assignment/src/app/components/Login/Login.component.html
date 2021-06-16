@@ -1,0 +1,61 @@
+<section id="employeeAdd">
+  <div class="container p-2">
+    <div class="row mt-2">
+      <div class="col-8 offset-2">
+        <hr />
+        <form action="">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="text-center">Welcome to website</h3>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="email"
+                  id="email"
+                  aria-describedby="emailId"
+                  placeholder=""
+                  [(ngModel)]="employee.email"
+                />
+                <small id="emailId" class="form-text text-muted"
+                  >Email is required</small
+                >
+              </div>
+
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  name="password"
+                  id="password"
+                  aria-describedby="passwordId"
+                  placeholder=""
+                  [(ngModel)]="employee.password"
+                />
+                <small id="passwordId" class="form-text text-muted"
+                  >Password is required</small
+                >
+              </div>
+
+              <app-message></app-message>
+            </div>
+
+            <div class="card-footer text-muted">
+              <button
+                class="btn btn-outline-primary btn-block"
+                [disabled]="btnDisable"
+                (click)="login()"
+              >
+                Login
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

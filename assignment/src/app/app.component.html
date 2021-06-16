@@ -1,0 +1,104 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Fpoly Shop</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div
+    class="collapse navbar-collapse d-flex justify-content-between"
+    id="navbarSupportedContent"
+  >
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">
+          <i class="fa fa-home"></i>
+          Home</a
+        >
+      </li>
+      <li class="nav-item" *ngIf="data.employee">
+        <a class="nav-link" [routerLink]="['/manage-employee']">
+          <i class="fa fa-user"></i>
+          Manage Employees</a
+        >
+      </li>
+      <li class="nav-item" *ngIf="data.employee">
+        <a class="nav-link" href="#">
+          <i class="fa fa-list"></i>
+          Manage Task</a
+        >
+      </li>
+      <li class="nav-item dropdown" *ngIf="data.employee">
+        <a
+          class="nav-link dropdown-toggle"
+          href="#"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="fa fa-user"></i>
+          Manager Profile
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Change Profile</a>
+          <a class="dropdown-item" href="#">View Profile</a>
+        </div>
+      </li>
+
+      <li class="nav-item" *ngIf="!data.employee">
+        <a class="nav-link" [routerLink]="['/login']">Login</a>
+      </li>
+      <li class="nav-item cursor-pointer" *ngIf="data.employee">
+        <a class="nav-link" (click)="logout()">Logout</a>
+      </li>
+    </ul>
+    <div
+      class="
+        lead
+        pr-2
+        text-uppercase
+        font-weight-bold
+        d-flex
+        align-items-center
+      "
+      *ngIf="data.employee"
+    >
+      <u>
+        {{ data.employee.name }}
+      </u>
+      <div style="width: 40px; height: 40px" class="ml-2">
+        <img
+          src="{{ data.employee.image }}"
+          alt=""
+          class="w-100 h-100"
+          style="border-radius: 50%"
+        />
+      </div>
+    </div>
+    <form class="form-inline my-2 my-lg-0 d-flex justify-content-between">
+      <input
+        class="form-control mr-2"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <button
+        class="btn btn-outline-success my-2 d-block my-sm-0"
+        type="submit"
+      >
+        Search
+      </button>
+    </form>
+  </div>
+</nav>
+
+<router-outlet></router-outlet>
