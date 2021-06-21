@@ -45,20 +45,15 @@ exports.getOne = async (req, res) => {
 }
 
 exports.create = (req, res) => {
-	const { password } = req.body
-
 	const newEmployee = new ProjectModel({
 		...req.body,
-		password: bcrypt.hashSync(password)
 	});
-
-	newEmployee.image = newEmployee.gravatar();
 
 	return newEmployee.save()
 		.then((project) => {
 			return res.status(200).json({
 				success: true,
-				message: 'Get Project ~successfully',
+				message: 'Create Project ~successfully',
 				payload: project
 			})
 		})
@@ -74,7 +69,7 @@ exports.create = (req, res) => {
 
 exports.delete = async (req, res) => {
 
-	return await ProjectModel.findOneAndDelete(req.params.id)
+	return await ProjectModel.deleteOne({ _id: req.params.id })
 		.then((response) => {
 			return res.status(200).json({
 				success: true,
@@ -91,17 +86,13 @@ exports.delete = async (req, res) => {
 		})
 }
 exports.update = async (req, res) => {
-	const currentEmployee = await ProjectModel.findById(req.params.id).select('-password')
-	const { password } = req.body
+	// const currentProject = await ProjectModel.findById(req.params.id);
 
-	const newPassword = password ? bcrypt.hashSync(password) : currentEmployee.password;
-
-	const newEmployee = {
+	const newProject = {
 		...req.body,
-		password: newPassword
 	}
 
-	return await ProjectModel.findByIdAndUpdate(req.params.id, newEmployee, { new: true }).select('-password')
+	return await ProjectModel.findByIdAndUpdate(req.params.id, newProject, { new: true })
 		.then((response) => {
 			return res.status(200).json({
 				success: true,

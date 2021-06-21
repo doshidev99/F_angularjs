@@ -74,7 +74,7 @@ exports.create = (req, res) => {
 
 exports.delete = async (req, res) => {
 
-	return await EmployeeModel.findOneAndDelete(req.params.id)
+	return await EmployeeModel.deleteOne({_id: req.params.id})
 		.then((response) => {
 			return res.status(200).json({
 				success: true,
