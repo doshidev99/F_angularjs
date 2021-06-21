@@ -1,3 +1,253 @@
-<p>
-  project-list works!
-</p>
+<section id="projectList">
+  <div class="container p-2">
+    <div class="position-absolute text-center m-auto" style="top: '50%'; left:0; right: 0; transition: translateY(-50%);" *ngIf="!projects">
+      <h1>
+        <i class="fa fa-spinner fa-spin"></i>
+      </h1>
+    </div>
+    <div class="row mt-2">
+      <div class="col-12">
+        <div class="d-flex justify-content-between">
+          <h2>List Project</h2>
+          <button class="btn btn-primary my-auto" (click)="toggle(formAdd)">
+            Add New Project
+          </button>
+        </div>
+        <app-message></app-message>
+        <hr />
+
+
+        <div class="card bg-light" *ngIf="project">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>STT</th>
+                <th>Name</th>
+                <th>Team size</th>
+                <th>Budget</th>
+                <th>Expense</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <div *ngIf="isLoading" class="">
+                <i class="fa fa-spinner fa-spin"></i>
+              </div>
+              <!-- <div *ngIf="!projects?.length" class="px-2 py-2 my-auto">
+                No Data
+              </div> -->
+
+              <tr *ngFor="let item of projects; index as i">
+                <td class="align-middle">{{ i + 1 }}</td>
+                <td class="align-middle" scope="row">
+                  <a class="nav-link" [routerLink]="['/projects/', item._id]">
+                    {{ item.name }}
+                  </a>
+                </td>
+                <td class="align-middle text-center">{{ item.teamSize }}</td>
+                <td class="align-middle">
+                  {{
+                  item.budget.toLocaleString("vi", {
+                  style: "currency",
+                  currency: "vnd"
+                  })
+                  }}
+                </td>
+                <td class="align-middle">
+                  {{
+                  item.expense.toLocaleString("vi", {
+                  style: "currency",
+                  currency: "vnd"
+                  })
+                  }}
+                </td>
+                <td class="align-middle">
+                  {{ formatDate(item.startDate) }}
+                </td>
+                <td class="align-middle">{{ formatDate(item.endDate) }}</td>
+                <td class="align-middle" [ngClass]="{
+                    'text-warning': item.status === 'Pending',
+                    'text-danger': item.status === 'Resigned'
+                  }">
+                  {{ item.status }}
+                </td>
+                <td class="align-middle">
+                  <div class="d-flex">
+                    <div class="btn btn-outline-danger my-auto" (click)="delete(item._id)">
+                      Delete
+                    </div>
+
+                    <button class="ml-2 btn btn-outline-primary my-auto" (click)="open(formUpdate, item._id)">
+                      Edit
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="col-12 justify-content-center d-flex">
+            <ngb-pagination *ngIf="projects?.length" [collectionSize]="projects.length" [(page)]="currentPage">
+            </ngb-pagination>
+          </div>
+        </div>
+      </div>
+
+      <form action="" #addEmployee="ngForm">
+        <ng-template #formAdd let-c="close" let-d="dismiss">
+          <div class="col-12">
+            <div class="modal-header">
+              <h4 class="modal-title text-center">Add New Project</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="m-auto text-center" *ngIf="isLoading">
+                <div>
+                  <i class="fa fa-spinner fa-spin"></i>
+                </div>
+              </div>
+
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="name">Name Project</label>
+                  <input type="text" class="form-control" name="name" id="name" aria-describedby="name"
+                    placeholder="Enter your name" [(ngModel)]="project.name" />
+                  <small id="name" class="form-text text-muted">Name project is required</small>
+                </div>
+
+                <div class="form-group">
+                  <label for="teamSize">Team Size</label>
+                  <input type="number" class="form-control" name="teamSize" id="teamSize" aria-describedby="teamSize"
+                    placeholder="Enter your team Size" [(ngModel)]="project.teamSize" />
+                  <small id="teamSize" class="form-text text-muted">Team Size is required</small>
+                </div>
+                <div class="form-group">
+                  <label for="budget">Budget</label>
+                  <input type="text" class="form-control" name="budget" id="budget" aria-describedby="budget"
+                    placeholder="" [(ngModel)]="project.budget" />
+                  <small id="budget" class="form-text text-muted">Budget is required</small>
+                </div>
+
+                <div class="form-group">
+                  <label for="expense">Expense</label>
+                  <input type="text" class="form-control" name="expense" id="expense" aria-describedby="expense"
+                    placeholder="" [(ngModel)]="project.expense" />
+                  <small id="expense" class="form-text text-muted">expense is required</small>
+                </div>
+                <div class="form-group">
+                  <label for="status">Start-Date</label>
+                  <input type="date" class="form-control" name="startDate" id="startDate" aria-describedby="startDate"
+                    placeholder="" [(ngModel)]="project.startDate" />
+                </div>
+
+                <div class="form-group">
+                  <label for="status">Start-Date</label>
+                  <input type="date" class="form-control" name="endDate" id="endDate" aria-describedby="endDate"
+                    placeholder="" [(ngModel)]="project.endDate" />
+                </div>
+
+                <div class="form-group">
+                  <label for="status">Status</label>
+                  <select class="form-control" name="status" id="status" [(ngModel)]="project.status">
+                    <option>Working</option>
+                    <option>Resigned</option>
+                    <option>Pending</option>
+                  </select>
+                </div>
+
+                <div class="text-muted">
+                  <button class="btn btn-outline-primary btn-block" [disabled]="btnDisable"
+                    (click)="add(); addEmployee.resetForm()">
+                    Add
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </form>
+
+      <form action="" #updateProject="ngForm">
+        <ng-template #formUpdate let-c="close" let-d="dismiss">
+          <div class="col-12">
+            <div class="modal-header">
+              <h4 class="modal-title text-center">Update Project</h4>
+              <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="m-auto text-center" *ngIf="isLoading">
+                <div>
+                  <i class="fa fa-spinner fa-spin"></i>
+                </div>
+              </div>
+
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="name">Name Project</label>
+                  <input type="text" class="form-control" name="name" id="name" aria-describedby="name"
+                    placeholder="Enter your name" [(ngModel)]="project.name" />
+                  <small id="name" class="form-text text-muted">Name project is required</small>
+                </div>
+
+                <div class="form-group">
+                  <label for="teamSize">Team Size</label>
+                  <input type="number" class="form-control" name="teamSize" id="teamSize" aria-describedby="teamSize"
+                    placeholder="Enter your team Size" [(ngModel)]="project.teamSize" />
+                  <small id="teamSize" class="form-text text-muted">Team Size is required</small>
+                </div>
+                <div class="form-group">
+                  <label for="budget">Budget</label>
+                  <input type="text" class="form-control" name="budget" id="budget" aria-describedby="budget"
+                    placeholder="" [(ngModel)]="project.budget" />
+                  <small id="budget" class="form-text text-muted">Budget is required</small>
+                </div>
+
+                <div class="form-group">
+                  <label for="expense">Expense</label>
+                  <input type="text" class="form-control" name="expense" id="expense" aria-describedby="expense"
+                    placeholder="" [(ngModel)]="project.expense" />
+                  <small id="expense" class="form-text text-muted">expense is required</small>
+                </div>
+                <div class="form-group">
+                  <label for="status">Start-Date</label>
+                  <input type="date" class="form-control" name="startDate" id="startDate" aria-describedby="startDate"
+                    placeholder="" [(ngModel)]="project.startDate" />
+                </div>
+
+                <div class="form-group">
+                  <label for="status">Start-Date</label>
+                  <input type="date" class="form-control" name="endDate" id="endDate" aria-describedby="endDate"
+                    placeholder="" [(ngModel)]="project.endDate" />
+                </div>
+
+                <div class="form-group">
+                  <label for="status">Status</label>
+                  <select class="form-control" name="status" id="status" [(ngModel)]="project.status">
+                    <option>Working</option>
+                    <option>Resigned</option>
+                    <option>Pending</option>
+                  </select>
+                </div>
+
+                <div class="text-muted">
+                  <button class="btn btn-outline-primary btn-block" [disabled]="btnDisable"
+                    (click)="update(); addEmployee.resetForm()">
+                    Update Project
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </form>
+    </div>
+  </div>
+</section>

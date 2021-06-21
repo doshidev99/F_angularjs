@@ -1,17 +1,19 @@
 <section id="employeeAdd">
   <div class="container p-2">
-    <div class="row mt-2">
+    <div class="position-absolute text-center m-auto" style="top: '50%'; left:0; right: 0; transition: translateY(-50%);" *ngIf="!employees">
+      <h1>
+        <i class="fa fa-spinner fa-spin"></i>
+      </h1>
+    </div>
+    <div *ngIf="employees" class="row mt-2">
+
       <div class="col-8">
         <h2>List employee</h2>
         <app-message></app-message>
         <hr />
 
-        <div class="m-auto text-center" *ngIf="!employees">
-          <h1>
-            <i class="fa fa-spinner fa-spin"></i>
-          </h1>
-        </div>
-        <div class="card bg-light" *ngIf="employees">
+
+        <div class=" " *ngIf="employees">
           <table class="table">
             <thead>
               <tr>
@@ -30,28 +32,19 @@
               <tr *ngFor="let item of employees; index as i">
                 <td class="align-middle">{{ i + 1 }}</td>
                 <td class="align-middle" scope="row">
-                  <a
-                    class="nav-link"
-                    [routerLink]="['/manage-employee/', item._id]"
-                  >
+                  <a class="nav-link" [routerLink]="['/manage-employee/', item._id]">
                     {{ item.name }}
                   </a>
                 </td>
                 <td class="align-middle">{{ item.email }}</td>
                 <td class="align-middle">{{ item.role }}</td>
                 <td class="align-middle">
-                  <div class="d-flex">
-                    <div
-                      class="btn btn-outline-danger my-auto"
-                      (click)="delete(item._id)"
-                    >
+                  <div class="d-flex justify-content-between">
+                    <div class="btn btn-outline-danger my-auto" (click)="delete(item._id)">
                       Delete
                     </div>
                     <div class="ml-2">
-                      <app-employee-edit
-                        [id]="item._id"
-                        (updateFinished)="finished($event)"
-                      >
+                      <app-employee-edit [id]="item._id" (updateFinished)="finished($event)">
                       </app-employee-edit>
                     </div>
                   </div>
@@ -71,59 +64,27 @@
             <div class="card-body">
               <div class="form-group">
                 <label for="name">Name</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="name"
-                  id="name"
-                  aria-describedby="nameId"
-                  placeholder="Enter your name employee"
-                  [(ngModel)]="employee.name"
-                />
-                <small id="nameId" class="form-text text-muted"
-                  >Name is required</small
-                >
+                <input type="text" class="form-control" name="name" id="name" aria-describedby="nameId"
+                  placeholder="Enter your name employee" [(ngModel)]="employee.name" />
+                <small id="nameId" class="form-text text-muted">Name is required</small>
               </div>
               <div class="form-group">
                 <label for="email">Email</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  name="email"
-                  id="email"
-                  aria-describedby="emailId"
-                  placeholder=""
-                  [(ngModel)]="employee.email"
-                />
-                <small id="emailId" class="form-text text-muted"
-                  >Email is required</small
-                >
+                <input type="text" class="form-control" name="email" id="email" aria-describedby="emailId"
+                  placeholder="" [(ngModel)]="employee.email" />
+                <small id="emailId" class="form-text text-muted">Email is required</small>
               </div>
 
               <div class="form-group">
                 <label for="password">Password</label>
-                <input
-                  type="password"
-                  class="form-control"
-                  name="password"
-                  id="password"
-                  aria-describedby="passwordId"
-                  placeholder=""
-                  [(ngModel)]="employee.password"
-                />
-                <small id="passwordId" class="form-text text-muted"
-                  >Password is required</small
-                >
+                <input type="password" class="form-control" name="password" id="password" aria-describedby="passwordId"
+                  placeholder="" [(ngModel)]="employee.password" />
+                <small id="passwordId" class="form-text text-muted">Password is required</small>
               </div>
 
               <div class="form-group">
                 <label for="zone">Zone</label>
-                <select
-                  class="form-control"
-                  name="zone"
-                  id="zone"
-                  [(ngModel)]="employee.zone"
-                >
+                <select class="form-control" name="zone" id="zone" [(ngModel)]="employee.zone">
                   <option>East</option>
                   <!-- D - T - N - B -->
                   <option>West</option>
@@ -134,12 +95,7 @@
 
               <div class="form-group">
                 <label for="status">Status</label>
-                <select
-                  class="form-control"
-                  name="status"
-                  id="status"
-                  [(ngModel)]="employee.status"
-                >
+                <select class="form-control" name="status" id="status" [(ngModel)]="employee.status">
                   <option>East</option>
                   <option>Working</option>
                   <option>Resigned</option>
@@ -149,24 +105,15 @@
 
               <div class="form-group">
                 <label for="role">Role</label>
-                <select
-                  class="form-control"
-                  name="role"
-                  id="role"
-                  [(ngModel)]="employee.role"
-                >
+                <select class="form-control" name="role" id="role" [(ngModel)]="employee.role">
                   <option>Leader</option>
                   <option>Employee</option>
                 </select>
               </div>
             </div>
             <div class="card-footer text-muted">
-              <button
-                class="btn btn-outline-primary btn-block"
-                [disabled]="btnDisable"
-                (click)="save();
-                addEmployee.resetForm()"
-              >
+              <button class="btn btn-outline-primary btn-block" [disabled]="btnDisable" (click)="save();
+                addEmployee.resetForm()">
                 Save
               </button>
             </div>

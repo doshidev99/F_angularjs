@@ -1,28 +1,22 @@
-<section id="employeeAdd">
-  <div class="container p-2">
-    <div class="row mt-2">
-      <div class="col-8 offset-2">
-        <!-- <app-message></app-message> -->
-        <h2>Info of employee {{ employee.name }}</h2>
-        <hr />
-        <div class="d-flex align-items-center">
-          <div class="card" style="width: 18rem">
-            <ul class="list-group list-group-flush">
-              <li class="list-group-item">
-                <div class="d-flex align-items-center justify-content-between">
-                  <div >Name: {{ employee.name }}</div>
-                  <div style="width: 100%, height 100%">
-                    <img src="{{ employee.image }}" alt="{{ employee.name }}" style="border-radius: 50%" />
-                  </div>
-                </div>
-              </li>
-              <li class="list-group-item">Email: {{ employee.email }}</li>
-              <li class="list-group-item">Role: {{ employee.role }}</li>
-              <li class="list-group-item">Zone: {{ employee.zone }}</li>
+<section class="our-webcoderskull padding-lg">
+  <div class="container">
+    <div class="row heading heading-icon">
+        <h2>Detail Employee</h2>
+    </div>
+    <ul class="row">
+      <li class="col-12 col-md-6 col-lg-3">
+          <div class="cnt-block equal-hight" style="height: 349px;">
+            <figure><img src="{{ employee.image }}" class="img-responsive" alt=""></figure>
+            <h3>{{ employee.name }}</h3>
+            <p>{{ employee.role }}</p>
+            <p>{{ employee.email }}</p>
+            <ul class="follow-us clearfix">
+              <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+              <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+              <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
             </ul>
           </div>
-        </div>
-      </div>
-    </div>
+      </li>
+    </ul>
   </div>
 </section>

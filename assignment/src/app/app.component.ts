@@ -9,10 +9,14 @@ import { Router } from '@angular/router';
 })
 export class AppComponent {
   title = 'assignment';
+  route!:any;
   constructor(private router: Router, public data: DataService) {
     this.data.getMe();
   }
 
+  ngOnInit() {
+    console.log(this.route)
+  }
   logout() {
     this.data.employee = null;
     localStorage.clear();

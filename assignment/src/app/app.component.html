@@ -1,81 +1,14 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="#">Fpoly Shop</a>
-  <button
-    class="navbar-toggler"
-    type="button"
-    data-toggle="collapse"
-    data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
 
-  <div
-    class="collapse navbar-collapse d-flex justify-content-between"
-    id="navbarSupportedContent"
-  >
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">
-          <i class="fa fa-home"></i>
-          Home</a
-        >
-      </li>
-      <li class="nav-item" *ngIf="data.employee">
-        <a class="nav-link" [routerLink]="['/manage-employee']">
-          <i class="fa fa-user"></i>
-          Manage Employees</a
-        >
-      </li>
-      <li class="nav-item" *ngIf="data.employee">
-        <a class="nav-link" href="#">
-          <i class="fa fa-list"></i>
-          Manage Task</a
-        >
-      </li>
-      <li class="nav-item dropdown" *ngIf="data.employee">
-        <a
-          class="nav-link dropdown-toggle"
-          href="#"
-          id="navbarDropdown"
-          role="button"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          <i class="fa fa-user"></i>
-          Manager Profile
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Change Profile</a>
-          <a class="dropdown-item" href="#">View Profile</a>
-        </div>
-      </li>
+<div id="{{data.employee ? 'wrapper': ''}}">
+  <!-- Sidebar -->
+  <ul  *ngIf="data.employee" class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion position-relative" id="accordionSidebar" >
 
-      <li class="nav-item" *ngIf="!data.employee">
-        <a class="nav-link" [routerLink]="['/login']">Login</a>
-      </li>
-      <li class="nav-item cursor-pointer" *ngIf="data.employee">
-        <a class="nav-link" (click)="logout()">Logout</a>
-      </li>
-    </ul>
-    <div
-      class="
-        lead
-        pr-2
-        text-uppercase
-        font-weight-bold
-        d-flex
-        align-items-center
-      "
-      *ngIf="data.employee"
-    >
-      <u>
-        {{ data.employee.name }}
-      </u>
-      <div style="width: 40px; height: 40px" class="ml-2">
+    <!-- Sidebar - Brand -->
+    <a class="sidebar-brand d-flex align-items-center justify-content-center"  *ngIf="data.employee">
+      <div class="sidebar-brand-icon rotate-n-15">
+        <i class="fas fa-laugh-wink"></i>
+      </div>
+      <div style="width: 40px; height: 40px" class="ml-2" >
         <img
           src="{{ data.employee.image }}"
           alt=""
@@ -83,22 +16,65 @@
           style="border-radius: 50%"
         />
       </div>
-    </div>
-    <form class="form-inline my-2 my-lg-0 d-flex justify-content-between">
-      <input
-        class="form-control mr-2"
-        type="search"
-        placeholder="Search"
-        aria-label="Search"
-      />
-      <button
-        class="btn btn-outline-success my-2 d-block my-sm-0"
-        type="submit"
-      >
-        Search
-      </button>
-    </form>
-  </div>
-</nav>
+      <div class="sidebar-brand-text mx-3" >
+        {{ data.employee.name }} <sup></sup></div>
+    </a>
 
-<router-outlet></router-outlet>
+    <!-- Divider -->
+    <hr class="sidebar-divider my-0">
+
+    <!-- Nav Item - Dashboard -->
+    <li class="nav-item active">
+      <a class="nav-link" href="index.html">
+        <i class="fas fa-fw fa-tachometer-alt"></i>
+        <span>Dashboard</span></a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+
+    <!-- Heading -->
+    <div class="sidebar-heading">
+      Interface
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" [routerLink]="['/manage-employee']" data-toggle=" collapse"
+        data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+        <i class="fa fa-user" aria-hidden="true"></i>
+        <span>Employee</span>
+      </a>
+      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div class="bg-white py-2 collapse-inner rounded">
+          <h6 class="collapse-header">Custom Components:</h6>
+          <a class="collapse-item" href="buttons.html">Buttons</a>
+          <a class="collapse-item" href="cards.html">Cards</a>
+        </div>
+      </div>
+    </li>
+
+    <!-- Nav Item - Utilities Collapse Menu -->
+    <li class="nav-item">
+      <a class="nav-link collapsed" [routerLink]="['/projects']">
+        <i class="fa fa-building" aria-hidden="true"></i>
+        <span>Projects</span>
+      </a>
+    </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <!-- Sidebar Toggler (Sidebar) -->
+    <div class="text-center d-none d-md-inline ">
+      <button class="rounded-circle border-0 position-absolute" (click)="logout()"  style="bottom:10px; left: '40%'">
+        <i class="fa fa-sign-out px-1 py-2" aria-hidden="true" style="font-size: 13px;"></i>
+      </button>
+    </div>
+
+  </ul>
+  <!-- End of Sidebar -->
+
+  <router-outlet ></router-outlet>
+
+</div>

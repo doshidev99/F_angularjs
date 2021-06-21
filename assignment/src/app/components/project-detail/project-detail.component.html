@@ -1,0 +1,54 @@
+<section id="employeeAdd">
+  <div class="container p-2">
+    <div class="row mt-2">
+      <div class="col-8 offset-2">
+        <!-- <app-message></app-message> -->
+        <h2>Detail of Project
+          <span class="font-weight-bold">
+
+            {{ project.name }}
+          </span>
+        </h2>
+        <hr />
+        <div class="d-flex align-items-center">
+          <div class="card" style="width: 18rem">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">
+                <div class="d-flex align-items-center justify-content-between">
+                  <div>Project Name:  <span class="font-weight-bold">
+                    {{ project.name }}
+                  </span></div>
+                </div>
+              </li>
+              <li class="list-group-item">Team Size: {{ project.teamSize }}</li>
+              <li class="list-group-item">
+                Budget:
+                {{
+                  project.budget.toLocaleString("vi", {
+                    style: "currency",
+                    currency: "vnd"
+                  })
+                }}
+              </li>
+              <li class="list-group-item">
+                Expense:
+
+                {{
+                  project.budget.toLocaleString("vi", {
+                    style: "currency",
+                    currency: "vnd"
+                  })
+                }}
+              </li>
+              <li class="list-group-item">
+                Start Date: {{ formatDate(project.startDate) }}
+              </li>
+              <li class="list-group-item">End Date: {{ formatDate(project.endDate) }}</li>
+              <li class="list-group-item">Status: {{ project.status }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

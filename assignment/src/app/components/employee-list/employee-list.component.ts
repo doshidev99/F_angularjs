@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, TemplateRef } from '@angular/core';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Employee } from 'src/app/models/employee';
 import { DataService } from 'src/app/services/data.service';
@@ -21,7 +21,7 @@ export class EmployeeListComponent implements OnInit {
   btnDisable: boolean = false;
   url = `http://localhost:3000/v1/api/employee`
 
-  constructor(private rest: RestApiService, private data: DataService, private modalService: NgbModal) {
+  constructor(private modelService: NgbModal, private rest: RestApiService, private data: DataService, private modalService: NgbModal) {
     this.employee = new Employee()
   }
 
@@ -41,6 +41,11 @@ export class EmployeeListComponent implements OnInit {
   finished(message: string) {
     // effect re-render
     this.ngOnInit();
+  }
+
+  open(content: TemplateRef<any>) {
+    this.data.message = ''
+    this.modelService.open(content, { ariaDescribedBy: 'modal-basic-title' })
   }
 
 

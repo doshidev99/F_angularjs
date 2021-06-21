@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { NgxPaginationModule } from 'ngx-pagination'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { DataService } from './services/data.service';
 import { HomeComponent } from './components/Home/Home.component';
 import { EmployeeEditComponent } from './components/employee-edit/employee-edit.component';
 import { LoginComponent } from './components/Login/Login.component';
+import { ProjectDetailComponent } from './components/project-detail/project-detail.component';
 
 @NgModule({
   declarations: [
@@ -27,14 +29,16 @@ import { LoginComponent } from './components/Login/Login.component';
     EmployeeAddComponent,
     EmployeeEditComponent,
     DetailEmployeeComponent,
-    ProjectListComponent
-   ],
+    ProjectListComponent,
+    ProjectDetailComponent
+  ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
     AppRoutingModule,
     NgbModule,
+    NgxPaginationModule
   ],
   providers: [RestApiService, DataService], //declare service
   bootstrap: [AppComponent]
